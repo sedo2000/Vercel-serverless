@@ -23,6 +23,27 @@ const botState = {
 
 // ─── إنشاء البوت ─────────────────────────────────────────────
 const bot = new Telegraf(BOT_TOKEN);
+const { Telegraf } = require('telegraf');
+const ytDl = require('yt-dlp-exec');
+
+const bot = new Telegraf(process.env.BOT_TOKEN);
+
+// --- كود الويب هوك التلقائي ---
+const setWebhook = async () => {
+    const webhookUrl = `${process.env.VERCEL_URL}/api`;
+    try {
+        await bot.telegram.setWebhook(webhookUrl);
+        console.log(`✅ تم ضبط الويب هوك تلقائياً على: ${webhookUrl}`);
+    } catch (e) {
+        console.error('❌ فشل ضبط الويب هوك تلقائياً:', e);
+    }
+};
+
+// تشغيل الويب هوك عند بدء البوت
+setWebhook();
+// -----------------------------
+
+// بقية كود البوت الخاص بك هنا...
 
 // ============================================================
 // دالة: التحقق من اشتراك المستخدم في القناة
